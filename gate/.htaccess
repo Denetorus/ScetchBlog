@@ -6,6 +6,9 @@ RewriteEngine on
 RewriteCond %{REQUEST_URI} ^/(api)
 RewriteRule ^api(/?.*)$ index.php/$1 [L]
 
+RewriteCond %{REQUEST_URI} ^/(rest)
+RewriteRule ^rest(/?.*)$ index.php/$1 [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(/?.*)\.(.*)$ /ReactJS/dist/$1.$2 [QSA,L]
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace api;
+namespace rest;
 
 
-use sketch\controller\ControllerAPI;
+use sketchExt\rest\ControllerREST;
 
-class UserController extends ControllerAPI
+class UserController extends ControllerREST
 {
     public function actionList(){
         return "User-List";

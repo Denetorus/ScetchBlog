@@ -1,17 +1,5 @@
 <?php
 
-use sketch\SK;
-use sketch\CommandObj;
-
-define("TYPE", "CONSOLE");
-
-include "config_sketch.php";
-
-define("CONT", ROOT."/console");
-define("CONT_NAMESPACE", "console");
-
-require_once(VENDOR.'/autoLoad.php');
-
 if (!empty($_SERVER['argv'][0])){
     if ($_SERVER['argv'][0] === 'sk') {
         array_splice($_SERVER['argv'], 0, 1);
@@ -22,13 +10,4 @@ if (!empty($_SERVER['argv'][0])){
     }
 }
 
-SK::add(
-    new CommandObj(
-        new sign\SignConsole(),
-        [
-            'router' => new router\RouterMain()
-        ]
-    )
-);
-
-SK::run(ROOT."/config_sk.json");
+include "skWeb.php";

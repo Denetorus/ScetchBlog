@@ -10,6 +10,6 @@ class PropsController extends ControllerBase
 {
     public function actionIndex()
     {
-        return  SK::getProps();
+        return  json_encode(SK::getProps());
     }
 }

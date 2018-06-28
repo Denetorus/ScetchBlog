@@ -6,10 +6,10 @@
  * Time: 21:00
  */
 
-namespace sketch\controller;
+namespace sketchExt\rest;
 
 
-abstract class ControllerAPI
+abstract class ControllerREST
 {
     public function actionGet($id)
     {

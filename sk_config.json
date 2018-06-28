@@ -1,0 +1,25 @@
+{
+  "default": {
+    "controllers_path": "controller",
+    "router": "\\router\\RouterMain",
+    "sign": "\\sign\\SignMain"
+  },
+  "routers": [
+    {
+      "path": "rest",
+      "sign": "\\sign\\SignMain",
+      "router": "\\sketchExt\\rest\\RouterRest",
+      "config_local": ""
+    },
+    {
+      "path": "api",
+      "sign": "\\sign\\SignConsole",
+      "router": "\\router\\RouterMain",
+      "config_local": ""
+    },
+    {
+      "path": "console",
+      "sign": "\\sign\\SignConsole"
+    }
+  ]
+}

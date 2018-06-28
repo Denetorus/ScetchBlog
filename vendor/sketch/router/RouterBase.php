@@ -2,9 +2,10 @@
 
 namespace sketch\router;
 
+use sketch\SK;
 use sketch\CommandInterface;
 
-abstract class RouterBase implements CommandInterface
+class RouterBase implements CommandInterface
 {
     public function routes()
     {
@@ -26,6 +27,7 @@ abstract class RouterBase implements CommandInterface
     public function run($signParams=[])
     {
         $uri = $this->getUri();
+        $controller_path = SK::$controllers_path;
 
         foreach ($this->routes() as $uriPattern => $path) {
             if (preg_match("~$uriPattern~", $uri)) {
@@ -34,7 +36,7 @@ abstract class RouterBase implements CommandInterface
                 $parameters = explode('/', $internalRoute);
                 $controllerName = ucfirst(array_shift($parameters)).'Controller';
 
-                $controllerFile = CONT."/". $controllerName . '.php';
+                $controllerFile = ROOT ."/". $controller_path ."/". $controllerName . '.php';
                 if (! file_exists($controllerFile)) {
                     break;
                 }
@@ -47,7 +49,7 @@ abstract class RouterBase implements CommandInterface
 
                 include_once($controllerFile);
 
-                $className = CONT_NAMESPACE.'\\'.$controllerName;
+                $className = $controller_path.'\\'.$controllerName;
                 $controllerObject = new $className;
 
                 $result = call_user_func_array(array($controllerObject, $actionName), $parameters);

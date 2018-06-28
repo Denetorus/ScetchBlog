@@ -1,14 +1,18 @@
 <?php
 
-namespace sketch\router;
+namespace sketchExt\rest;
+
+use sketch\SK;
+use sketch\router\RouterBase;
 
 
-class RouterAPI extends RouterBase
+class RouterREST extends RouterBase
 {
 
     public function run($signParams=[])
     {
         $uri = $this->getUri();
+        $controller_path = SK::$controllers_path;
 
         foreach ($this->routes() as $uriPattern => $path) {
             if (preg_match("~$uriPattern~", $uri)) {
@@ -17,7 +21,7 @@ class RouterAPI extends RouterBase
                 $parameters = explode('/', $internalRoute);
                 $controllerName = ucfirst(array_shift($parameters)).'Controller';
 
-                $controllerFile = CONT."/". $controllerName . '.php';
+                $controllerFile = ROOT ."/". $controller_path ."/". $controllerName . '.php';
                 if (! file_exists($controllerFile)) {
                     break;
                 }
@@ -26,7 +30,7 @@ class RouterAPI extends RouterBase
 
                 $actionName = "action".$_SERVER["REQUEST_METHOD"];
 
-                $className = CONT_NAMESPACE.'\\'.$controllerName;
+                $className = $controller_path ."\\". $controllerName;
                 $controllerObject = new $className;
 
                 $result = call_user_func_array(array($controllerObject, $actionName), $parameters);

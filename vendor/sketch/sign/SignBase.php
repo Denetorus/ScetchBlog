@@ -8,7 +8,7 @@ use sketch\CommandObj;
 use sketch\SK;
 use sketch\sign\model\SignWithoutModel;
 
-abstract class SignBase implements CommandInterface
+class SignBase implements CommandInterface
 {
     public $User;
     public $Authorize;
