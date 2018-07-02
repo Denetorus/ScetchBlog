@@ -8,7 +8,7 @@ class m130524_201442_create_user_table extends Migrate
 {
     public function up()
     {
-        $this->db->createTable('user', [
+        $this->db->createTable('users', [
                 'id' => 'serial NOT NULL',
                 'username' => 'character varying(255) NOT NULL',
                 'auth_key' => 'character varying(32) NOT NULL',
@@ -30,6 +30,6 @@ class m130524_201442_create_user_table extends Migrate
 
     public function down()
     {
-        $this->db->dropTable('user');
+        $this->db->dropTable('users');
     }
 }

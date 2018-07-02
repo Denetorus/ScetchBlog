@@ -13,7 +13,7 @@
     },
     {
       "path": "api",
-      "sign": "\\sign\\SignConsole",
+      "sign": "\\sign\\SignMain",
       "router": "\\router\\RouterMain",
       "config_local": ""
     },

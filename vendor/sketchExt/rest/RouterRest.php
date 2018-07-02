@@ -6,7 +6,7 @@ use sketch\SK;
 use sketch\router\RouterBase;
 
 
-class RouterREST extends RouterBase
+class RouterRest extends RouterBase
 {
 
     public function run($signParams=[])

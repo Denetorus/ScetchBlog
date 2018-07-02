@@ -1,5 +1,6 @@
 <?php
 
+
 if (!empty($_SERVER['argv'][0])){
     if ($_SERVER['argv'][0] === 'sk') {
         array_splice($_SERVER['argv'], 0, 1);
@@ -9,5 +10,8 @@ if (!empty($_SERVER['argv'][0])){
         array_splice($_SERVER['argv'], 0, 1);
     }
 }
+
+$_SERVER['REQUEST_URI'] = "/console/".$_SERVER['REQUEST_URI'];
+
 
 include "skWeb.php";

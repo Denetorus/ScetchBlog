@@ -3,9 +3,10 @@
 namespace rest;
 
 
-use sketchExt\rest\ControllerREST;
+use object\DBMain\UsersObj;
+use sketchExt\rest\ControllerRest;
 
-class UserController extends ControllerREST
+class UserController extends ControllerRest
 {
     public function actionList(){
         return "User-List";
@@ -16,7 +17,13 @@ class UserController extends ControllerREST
     }
 
     public function actionGet($id){
-        return "User-Add-{$id}";
+        $User = new UsersObj();
+        if ($User->props === null) {
+            return [];
+        }
+
+        var_dump($User->props);
+        return $User->email;
     }
 
 }

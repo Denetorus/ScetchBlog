@@ -42,9 +42,17 @@ class DBSQL
     }
     public function select($query, $params = array())
     {
-        $result = $this->Query($query, $params);
+        $result = $this->query($query, $params);
         if ($result) {
             return $result->fetchAll();
+        }
+        return null;
+    }
+    public function selectOne($query, $params = array())
+    {
+        $result = $this->query($query, $params);
+        if ($result) {
+            return $result->fetch();
         }
         return null;
     }
@@ -71,12 +79,10 @@ class DBSQL
         $queryText = 'CREATE TABLE "'.$table.'" ('.$paramsText.')';
         $this->Query($queryText);
     }
-
     public function dropTable($table)
     {
         $this->Query('DELETE TABLE '.$table);
     }
-
     public function tableIsExist($table)
     {
         $result = $this->select(
@@ -92,6 +98,75 @@ class DBSQL
         $result = $this->select(
             "SELECT * FROM {$table} where {$condition}"
         );
-        return Count($result) === 1;
+        return Count($result) !== 0;
+    }
+    public function getRecords($table, $condition)
+    {
+        $result = $this->select("SELECT * FROM {$table} where {$condition}");
+        return $result;
+    }
+    public function getRecord($table, $condition)
+    {
+        $result = $this->selectOne(
+            "SELECT * FROM {$table} WHERE {$condition}"
+        );
+        if ($result) {
+            return $result;
+        }
+        return null;
+    }
+    public function getRecordById($table, $id)
+    {
+        return  $this->getRecord($table, "id = {$id} ");
+    }
+
+    public function setRecord($table, $params)
+    {
+        $symbol = "";
+        $paramsName = "";
+        $valueName = "";
+        foreach ($params as $key=>$val) {
+            if ($key === "id") {
+                unset($params["id"]);
+                continue;
+            }
+            $paramsName .= $symbol.$key;
+            $valueName .= $symbol." :".$key;
+            $symbol = ", ";
+        }
+
+        var_dump("INSERT INTO {$table} ({$paramsName}) VALUES ({$valueName})");
+        $this->query(
+            "INSERT INTO {$table} ({$paramsName}) VALUES ({$valueName})",
+            $params
+        );
+    }
+    public function updateRecord($table, $id, $params)
+    {
+        $symbol = "";
+        $paramsValuesName = "";
+        foreach ($params as $key=>$val) {
+            $paramsValuesName .= $symbol.$key."=:".$key;
+            $symbol = ", ";
+        }
+
+        $this->query(
+          "UPDATE {$table} SET {$paramsValuesName} WHERE id = {$id}",
+          $params
+        );
+    }
+    public function createRecord($table)
+    {
+        $columns = $this->select(
+            "SELECT column_name, column_default 
+                  FROM information_schema.columns 
+                  WHERE table_schema='public' and table_name='{$table}'"
+        );
+
+        $items = [];
+        foreach ($columns as $column) {
+            $items[$column["column_name"]]=$column["column_default"];
+        }
+        return $items;
     }
 }

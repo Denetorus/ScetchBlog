@@ -8,7 +8,6 @@ class TestController extends ControllerBase
 {
     public function actionIndex()
     {
-        echo "test is execute";
-        return  "";
+        return "test web is execute";
     }
 }

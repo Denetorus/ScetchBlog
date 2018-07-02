@@ -9,7 +9,7 @@
 namespace sketchExt\rest;
 
 
-abstract class ControllerREST
+abstract class ControllerRest
 {
     public function actionGet($id)
     {

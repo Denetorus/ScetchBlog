@@ -5,24 +5,13 @@ namespace object\DBMain;
 use database\DBMain;
 use sketch\object\ObjectBase;
 
-class UserObj extends ObjectBase
+class UsersObj extends ObjectBase
 {
-    public $username = "";
-    public $auth_key = "";
-    public $password_hash = "";
-    public $password_reset_token = "";
-    public $email = "";
-    public $status = "";
-    public $created_at = "";
-    public $updated_at = "";
 
-    public function __construct($id = null)
+    public function __construct($id = 0)
     {
-        $this->table = "user";
+        $this->table = "users";
         $this->db = DBMain::getInstance();
-        $res = $this->db->select("SELECT * FROM users");
-        var_dump($res);
-        exit;
         parent::__construct($id);
     }
 }
